@@ -1,0 +1,3 @@
+-D colyseus-hxjs=0.0.0
+# @install: lix --silent download "gh://github.com/serjek/colyseus-hxjs#e9100a4667dac2b13f384552278d2ac4fdc88d5b" into colyseus-hxjs/0.0.0/github/e9100a4667dac2b13f384552278d2ac4fdc88d5b
+-cp ${HAXE_LIBCACHE}/colyseus-hxjs/0.0.0/github/e9100a4667dac2b13f384552278d2ac4fdc88d5b/src
