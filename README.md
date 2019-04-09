@@ -9,7 +9,7 @@ cd bin/server
 yarn
 node index.js
 ```
-- Note you should have lix installed:
+- Note you should have [lix](https://github.com/lix-pm/lix.client) installed:
 `npm i lix -g`
 
 ### Run client(s) of your choice
