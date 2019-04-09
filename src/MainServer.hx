@@ -4,7 +4,7 @@ import colyseus.server.Server;
 import js.node.Http;
 import Config;
 
-class Main {
+class MainServer {
 	static function main() {
 		// Attach WebSocket Server on HTTP Server.
 		var gameServer = new Server({

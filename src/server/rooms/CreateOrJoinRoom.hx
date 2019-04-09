@@ -1,4 +1,4 @@
-package rooms;
+package server.rooms;
 import colyseus.server.Room;
 
 class CreateOrJoinRoom extends Room {
