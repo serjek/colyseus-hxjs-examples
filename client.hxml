@@ -1,11 +1,10 @@
 -D js-es=6
 
 -cp src
--main Main
+-main MainClient
 -dce full
 -lib colyseus-hxjs
 -lib tink_core
 -lib tink_lang
--lib hxnodejs
 
--js bin/index.js
+-js bin/client/index.js

@@ -9,11 +9,12 @@ class ChatRoom extends Room {
 	}
 
     override function onInit (options:Dynamic) {
-        trace("BasicRoom created!", options);
+        trace("ChatRoom created!", options);
     }
 
     override function onJoin (client, ?options:Dynamic, ?auth:Dynamic) {
         broadcast('${ client.sessionId } joined.');
+        //TODO figure out how to get rid of this
         return null;
     }
 
@@ -23,12 +24,12 @@ class ChatRoom extends Room {
     }
 
     override function onMessage(client, data:Dynamic) {
-        trace("BasicRoom received message from", client.sessionId, ":", data);
+        trace("ChatRoom received message from", client.sessionId, ":", data);
         broadcast('(${ client.sessionId }) ${ data.message }');
     }
 
     override function onDispose () {
-        trace("Dispose BasicRoom");
+        trace("Dispose ChatRoom");
         return null;
     }
 }
