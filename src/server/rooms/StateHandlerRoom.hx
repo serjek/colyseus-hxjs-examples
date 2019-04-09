@@ -1,9 +1,38 @@
 package server.rooms;
+import js.node.vm.Script;
 import colyseus.server.Room;
 import colyseus.server.schema.Schema;
+using colyseus.server.schema.Schema.MapSchemaUtil;
 
 class StateHandlerRoom extends Room {
 
+    var myState:State;
+
+    override function onInit (options:Dynamic) {
+        trace("StateHandlerRoom created!", options);
+        myState = new State();
+        setState(myState);
+    }
+
+    override function onJoin (client, ?options:Dynamic, ?auth:Dynamic) {
+        myState.createPlayer(client.sessionId);
+        return null;
+    }
+
+    override function onLeave (client, ?consented:Bool) {
+        myState.removePlayer(client.sessionId);
+        return null;
+    }
+
+   override function onMessage (client, data:Dynamic) {
+        trace("StateHandlerRoom received message from", client.sessionId, ":", data);
+        myState.movePlayer(client.sessionId, data);
+    }
+
+    override function onDispose () {
+        trace("Dispose StateHandlerRoom");
+        return null;
+    }
 }
 
 class Player extends Schema implements ISchema {
@@ -18,28 +47,33 @@ class Player extends Schema implements ISchema {
         y = Math.floor(Math.random() * 400);
     }
 }
-/*
-class State extends Schema {
-    @type({ map: Player })
-    players = new MapSchema<Player>();
 
-    public var something:String; = "This attribute won't be sent to the client-side";
+class State extends Schema implements ISchema {
+    @:type({map: Player})
+    public var players:MapSchema<Player>;
 
-    public function createPlayer(id: string) {
-        this.players[ id ] = new Player();
+    public var something:String = "This attribute won't be sent to the client-side";
+
+    public function new() {
+        players = new MapSchema<Player>();
     }
 
-    removePlayer (id: string) {
-        delete this.players[ id ];
+    public function createPlayer(id: String) {
+        players.set(id, new Player());
     }
 
-    movePlayer (id: string, movement: any) {
-        if (movement.x) {
-            this.players[ id ].x += movement.x * 10;
+    public function removePlayer (id: String) {
+        players.set(id, null);
+    }
 
-        } else if (movement.y) {
-            this.players[ id ].y += movement.y * 10;
+    public function movePlayer (id: String, movement: Point) {
+        if (movement.x != null) {
+            players.get(id).x += movement.x * 10;
+        }
+        if (movement.y != null) {
+            players.get(id).y += movement.y * 10;
         }
     }
 }
-*/
+
+typedef Point = {x:Int, y:Int};
