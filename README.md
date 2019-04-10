@@ -1,6 +1,8 @@
 # colyseus-hxjs-examples
 Examples for [colyseus-hxjs](https://github.com/serjek/colyseus-hxjs) library ported from official [Colyseus examples](https://github.com/colyseus/colyseus-examples)
 
+- Note that since ES6 code is required you should use haxe no earlier than 4.0.0-rc.2
+
 ### Compile server example
 ```
 lix download
