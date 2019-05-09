@@ -7,3 +7,5 @@
 -lib hxnodejs
 
 -js bin/server/index.js
+
+-D js-es=6
