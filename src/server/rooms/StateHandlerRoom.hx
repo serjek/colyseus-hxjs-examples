@@ -63,7 +63,7 @@ class State extends Schema implements ISchema {
     }
 
     public function removePlayer (id: String) {
-        players.set(id, null);
+        players.delete(id);
     }
 
     public function movePlayer (id: String, movement: Point) {
