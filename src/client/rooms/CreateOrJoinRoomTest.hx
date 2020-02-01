@@ -1,5 +1,6 @@
 package client.rooms;
 
+import js.lib.Promise;
 import Config.RoomID;
 import colyseus.client.Colyseus;
 
@@ -16,22 +17,14 @@ import colyseus.client.Colyseus;
     var currentRoom:Room;
     
     public function new()
-        client.onOpen.add(function() {
-            trace("onOpen");
-
-            create();
-            create();
-            create();
-            haxe.Timer.delay(getAvailableRooms, 1000);
-        });
+		create()
+			.then(_ -> create())
+			.then(_ -> create())
+			.then(_ -> getAvailableRooms())
+			.then(rooms -> trace(rooms));
     
 
     function addListeners(room:Room) {
-        room.onJoin.add(function() {
-            trace(room.id);
-            trace('joined!');
-        });
-
         room.onLeave.add(function(arguments) {
             trace("LEFT ROOM", arguments);
         });
@@ -42,23 +35,27 @@ import colyseus.client.Colyseus;
     }
 
     function join () {
-        currentRoom = client.join(RoomID.CREATE_OR_JOIN);
-        addListeners(currentRoom);
+		client.join(RoomID.CREATE_OR_JOIN).then(room -> {
+			currentRoom = room;
+			addListeners(currentRoom);
+		});
     }
 
-    function create () {
-        currentRoom = client.join(RoomID.CREATE_OR_JOIN, { create: true });
-        addListeners(currentRoom);
+    function create ():Promise<Dynamic> {
+       return client.create(RoomID.CREATE_OR_JOIN, { create: true }).then(room -> {
+			currentRoom = room;
+			addListeners(currentRoom);
+		});
     }
 
     function joinByLastId () {
-        currentRoom = client.join(currentRoom.id);
-        addListeners(currentRoom);
+		client.join(currentRoom.id).then(room -> {
+			currentRoom = room;
+			addListeners(currentRoom);
+		});
     }
 
     function getAvailableRooms() {
-        client.getAvailableRooms(RoomID.CREATE_OR_JOIN, function(rooms, ?err) {
-            trace(rooms);
-        });
+        return client.getAvailableRooms(RoomID.CREATE_OR_JOIN);
     }
 }

@@ -2,13 +2,12 @@ package server.rooms;
 import js.node.vm.Script;
 import colyseus.server.Room;
 import colyseus.server.schema.Schema;
-using colyseus.server.schema.Schema.MapSchemaUtil;
 
 class StateHandlerRoom extends Room {
 
     var myState:State;
 
-    override function onInit (options:Dynamic) {
+    override function onCreate (options:Dynamic) {
         trace("StateHandlerRoom created!", options);
         myState = new State();
         setState(myState);

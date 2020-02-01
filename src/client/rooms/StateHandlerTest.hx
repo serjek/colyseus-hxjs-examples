@@ -13,15 +13,18 @@ import colyseus.client.Colyseus;
         onMessage,
         send
     )
-    var room:Room = client.join(RoomID.STATE_HANDLER);
+    var room:Room;
     
     public function new() {
-        onJoin.add(onJoinHandler);
+		client.joinOrCreate(RoomID.STATE_HANDLER).then(room -> {
+			this.room = room;
+			onJoinHandler();
+		});
     }
     
     function onJoinHandler() {
         // listen to patches coming from the server
-        onStateChange.addOnce(function(state) {
+        onStateChange.once(function(state) {
             trace("initial room state:", state);
 
             room.state.players.onAdd = function(player, sessionId) {

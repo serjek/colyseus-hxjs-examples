@@ -13,10 +13,13 @@ import colyseus.client.Colyseus;
         onMessage,
         send
     )
-    var room:Room = client.join(RoomID.CHAT);
+    var room:Room;
     
     public function new() {
-        onJoin.add(onJoinHandler);
+		client.joinOrCreate(RoomID.CHAT).then(room -> {
+			this.room = room;
+			onJoinHandler();
+		});
     }
     
     function onJoinHandler() {
@@ -25,7 +28,7 @@ import colyseus.client.Colyseus;
             trace("CHANGE!", change);
         });
 
-        onStateChange.addOnce(function(state) {
+        onStateChange.once(function(state) {
             trace("initial room state:", state);
         });
 

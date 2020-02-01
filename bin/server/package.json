@@ -8,6 +8,6 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "colyseus": "^0.10.3"
+    "colyseus": "^0.12.0"
   }
 }

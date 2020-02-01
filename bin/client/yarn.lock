@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@colyseus/schema@^0.4.0":
-  version "0.4.17"
-  resolved "https://registry.yarnpkg.com/@colyseus/schema/-/schema-0.4.17.tgz#1063557e803fa8c88d237ded7e479b472de52caf"
-  integrity sha512-CPLmYtwaSaA47WlTID5acIbq8N+TlexMG80uPdWNrXekOHO0zc98mwy1TSFit4UjpkkWpKPgsAiCnUgyw9BIfQ==
+"@colyseus/schema@^0.5.5":
+  version "0.5.24"
+  resolved "https://registry.yarnpkg.com/@colyseus/schema/-/schema-0.5.24.tgz#0e182c693ca0baf42102d2fa1da0decce380451d"
+  integrity sha512-XPqapMWPCOBf6ciAaS8EaqJ9xBc9zAd9LIw9COoKeKIfY24Wqn09qTQEt0L3OoczlQP0r0nBzgC3BWLo44wrwA==
 
 "@gamestdio/signals@^1.0.0":
   version "1.0.0"
@@ -27,27 +27,39 @@ async-limiter@~1.0.0:
   resolved "https://registry.yarnpkg.com/async-limiter/-/async-limiter-1.0.0.tgz#78faed8c3d074ab81f22b4e985d79e8738f720f8"
   integrity sha512-jp/uFnooOiO+L211eZOoSyzpOITMXx1rBITauYykG3BRYPu8h0UcxsPNB04RR5vo4Tyz3+ay17tR6JVf9qzYWg==
 
-colyseus.js@^0.10.4:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/colyseus.js/-/colyseus.js-0.10.4.tgz#4e9e7950ade498b352134673a44715306120d866"
-  integrity sha512-znozlnQ32PMV5oGT9DySz4HFaT4p1h8oc6nKpt0H18bNKjnUDROT90VpvlXfNi2aG4ZqFjbR26brQPM6bJrvSw==
+colyseus.js@^0.12.0:
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/colyseus.js/-/colyseus.js-0.12.0.tgz#f774a601c2fa6327dcfed9e005964cff76b7c2fd"
+  integrity sha512-HroQDmuOaaR0SevRZkZUs54SGTVNkxNXDQmsimh5w+ctbOlFz+8ddUi5+n5ZtvIbREzG24RsdDkayC5hhPH9TQ==
   dependencies:
-    "@colyseus/schema" "^0.4.0"
+    "@colyseus/schema" "^0.5.5"
     "@gamestdio/signals" "^1.0.0"
     "@gamestdio/state-listener" "^3.1.0"
     "@gamestdio/websocket" "^0.3.2"
     fossil-delta "^1.0.0"
+    httpie "^2.0.0-next.3"
     notepack.io "^2.1.3"
+    strong-events "^1.0.5"
 
 fossil-delta@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/fossil-delta/-/fossil-delta-1.0.2.tgz#a3e9545d5fd5e1b317dca38f0c852baa80b13b89"
   integrity sha512-fkgQUnBaJjhDq0DN1ajBlWWRH99NQgwVoReMEr0oXLqYXAx8X9mD5gGaoTYDdVVbLJYsMNrnkJ028Ld0UgWrGA==
 
+httpie@^2.0.0-next.3:
+  version "2.0.0-next.4"
+  resolved "https://registry.yarnpkg.com/httpie/-/httpie-2.0.0-next.4.tgz#b7e0a4fe6bb23fc5a9b0d92b045cc261d15c6011"
+  integrity sha512-f7vDU0UtHu/pv6x2aIP0X/TuNHxtCQY5HBxuylLKIhYv3XWm1+hvL9Nb9B2SqkWOFPgN7RSC3UJL2U36/VY6fA==
+
 notepack.io@^2.1.3:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/notepack.io/-/notepack.io-2.2.0.tgz#d7ea71d1cb90094f88c6f3c8d84277c2d0cd101c"
   integrity sha512-9b5w3t5VSH6ZPosoYnyDONnUTF8o0UkBw7JLA6eBlYJWyGT1Q3vQa8Hmuj1/X6RYvHjjygBDgw6fJhe0JEojfw==
+
+strong-events@^1.0.5:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/strong-events/-/strong-events-1.0.7.tgz#b12da3ec5cd79cf50851707c3d66912428198067"
+  integrity sha512-zKYPfTtLaZiwDoDiGkNQdurbGhzVS7oE23AmHOnA6rUp4E7FeF7Z6xbHQEqSRqNyaTN+X3rcppfobypf0k3Ltg==
 
 ws@^6.2.1:
   version "6.2.1"

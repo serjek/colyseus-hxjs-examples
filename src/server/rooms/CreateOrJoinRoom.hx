@@ -7,7 +7,7 @@ class CreateOrJoinRoom extends Room {
 		maxClients = 4;		
 	}
 
-    override function onInit (options:Dynamic)
+    override function onCreate (options:Dynamic)
         trace("CREATING NEW ROOM");
 
     override function onJoin (client, ?options:Dynamic, ?auth:Dynamic) {
@@ -19,9 +19,4 @@ class CreateOrJoinRoom extends Room {
         trace("ChatRoom:", client.sessionId, "left!");
         return null;
     }
-
-    override function requestJoin (options:Dynamic, ?isNew:Bool)
-        return (options.create)
-            ? (options.create && isNew)
-            : clients.length > 0;
 }

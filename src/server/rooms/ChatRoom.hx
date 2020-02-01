@@ -8,7 +8,7 @@ class ChatRoom extends Room {
 		maxClients = 4;		
 	}
 
-    override function onInit (options:Dynamic) {
+    override function onCreate (options:Dynamic) {
         trace("ChatRoom created!", options);
     }
 
