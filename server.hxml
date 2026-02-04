@@ -2,10 +2,9 @@
 -main MainServer
 -dce full
 -lib colyseus-hxjs
--lib tink_core
--lib tink_lang
 -lib hxnodejs
 
--js bin/server/index.js
+-D no-deprecation-warnings
+-D js-source-map
 
--D js-es=6
+-js bin/server/index.js

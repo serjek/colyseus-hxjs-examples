@@ -4,7 +4,7 @@ import colyseus.server.Room;
 class CreateOrJoinRoom extends Room {
     public function new() {
 		super();
-		maxClients = 4;		
+		maxClients = 4;
 	}
 
     override function onCreate (options:Dynamic)

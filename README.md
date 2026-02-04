@@ -11,7 +11,7 @@ To install lix globally use this command
 lix download
 haxe server.hxml
 cd bin/server
-yarn
+npm i
 node index.js
 ```
 
@@ -22,7 +22,7 @@ Please note that these are only server side examples. You should take care of cr
 ```
 haxe client.hxml
 cd bin/client
-yarn
+npm i
 node index.js
 ```
 - Or use client provided in official [Colyseus examples](https://github.com/colyseus/colyseus-examples) at `/static` (don't forget to bundle client lib so that colyseus.js got created) 

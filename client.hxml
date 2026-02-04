@@ -5,4 +5,7 @@
 -lib tink_core
 -lib tink_lang
 
+-D no-deprecation-warnings
+-D js-source-map
+
 -js bin/client/index.js

@@ -3,33 +3,35 @@ import colyseus.server.Room;
 
 class ChatRoom extends Room {
 
-    public function new() {
+	public function new() {
 		super();
-		maxClients = 4;		
+		maxClients = 4;
 	}
 
-    override function onCreate (options:Dynamic) {
-        trace("ChatRoom created!", options);
-    }
+	override function onCreate (options:Dynamic) {
+		trace("ChatRoom created!", options);
+		onMessage(
+			"message",
+			(client, data) -> {
+				trace("ChatRoom received message from", client.sessionId, ":", data);
+				broadcast("broadcast", '(${ client.sessionId }) ${ data.message }');
+			}
+		);
+	}
 
-    override function onJoin (client, ?options:Dynamic, ?auth:Dynamic) {
-        broadcast('${ client.sessionId } joined.');
-        //TODO figure out how to get rid of this
-        return null;
-    }
+	override function onJoin (client, ?options:Dynamic, ?auth:Dynamic) {
+		broadcast("broadcast", '${ client.sessionId } joined.');
+		//TODO figure out how to get rid of this
+		return null;
+	}
 
-    override function onLeave(client, ?consented:Bool) {
-        broadcast('${ client.sessionId } left.');
-        return null;
-    }
+	override function onLeave(client, ?consented:Bool) {
+		broadcast("broadcast", '${ client.sessionId } left.');
+		return null;
+	}
 
-    override function onMessage(client, data:Dynamic) {
-        trace("ChatRoom received message from", client.sessionId, ":", data);
-        broadcast('(${ client.sessionId }) ${ data.message }');
-    }
-
-    override function onDispose () {
-        trace("Dispose ChatRoom");
-        return null;
-    }
+	override function onDispose () {
+		trace("Dispose ChatRoom");
+		return null;
+	}
 }
