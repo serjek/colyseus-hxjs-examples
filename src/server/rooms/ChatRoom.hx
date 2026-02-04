@@ -6,20 +6,21 @@ class ChatRoom extends Room {
 	public function new() {
 		super();
 		maxClients = 4;
+		autoDispose = false;
 	}
 
-	override function onCreate (options:Dynamic) {
+	override function onCreate(options:Dynamic) {
 		trace("ChatRoom created!", options);
 		onMessage(
 			"message",
 			(client, data) -> {
 				trace("ChatRoom received message from", client.sessionId, ":", data);
-				broadcast("broadcast", '(${ client.sessionId }) ${ data.message }');
+				broadcast("broadcast", '(${ client.sessionId }) $data');
 			}
 		);
 	}
 
-	override function onJoin (client, ?options:Dynamic, ?auth:Dynamic) {
+	override function onJoin(client, ?options:Dynamic) {
 		broadcast("broadcast", '${ client.sessionId } joined.');
 		//TODO figure out how to get rid of this
 		return null;
@@ -30,7 +31,7 @@ class ChatRoom extends Room {
 		return null;
 	}
 
-	override function onDispose () {
+	override function onDispose() {
 		trace("Dispose ChatRoom");
 		return null;
 	}

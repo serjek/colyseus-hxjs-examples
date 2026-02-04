@@ -4,12 +4,12 @@ import colyseus.server.schema.Schema;
 
 class StateHandlerRoom extends Room {
 
-	var myState:State;
-
-	override function onCreate (options:Dynamic) {
+	var myState:MyState;
+	override function onCreate(options:Dynamic) {
 		trace("StateHandlerRoom created!", options);
-		myState = new State();
-		setState(myState);
+		myState = new MyState();
+		this.state = myState;
+		autoDispose = false;
 		onMessage(
 			"message",
 			(client, data) -> {
@@ -19,17 +19,21 @@ class StateHandlerRoom extends Room {
 		);
 	}
 
-	override function onJoin (client, ?options:Dynamic, ?auth:Dynamic) {
+	override function onDrop(client, code) {
+		return this.allowReconnection(client, 20);
+	}
+
+	override function onJoin(client, ?options:Dynamic) {
 		myState.createPlayer(client.sessionId);
 		return null;
 	}
 
-	override function onLeave (client, ?consented:Bool) {
+	override function onLeave(client, ?consented:Bool) {
 		myState.removePlayer(client.sessionId);
 		return null;
 	}
 
-	override function onDispose () {
+	override function onDispose() {
 		trace("Dispose StateHandlerRoom");
 		return null;
 	}
@@ -49,7 +53,7 @@ class Player extends Schema {
 	}
 }
 
-class State extends Schema {
+class MyState extends Schema {
 	@:type({map: Player})
 	public var players:MapSchema<Player>;
 
@@ -64,11 +68,11 @@ class State extends Schema {
 		players.set(id, new Player());
 	}
 
-	public function removePlayer (id: String) {
+	public function removePlayer(id: String) {
 		players.delete(id);
 	}
 
-	public function movePlayer (id: String, movement: Point) {
+	public function movePlayer(id: String, movement: Point) {
 		if (movement.x != null) {
 			players.get(id).x += movement.x * 10;
 		}

@@ -1,40 +1,50 @@
 package;
 import server.rooms.*;
-import colyseus.server.Server;
+import colyseus.server.Express;
+import colyseus.server.Colyseus.defineServer;
+import colyseus.server.Colyseus.defineRoom;
+import colyseus.server.Colyseus.monitor;
+import colyseus.server.Colyseus.playground;
 import js.node.Http;
 import Config;
 
 class MainServer {
 	static function main() {
 		// Attach WebSocket Server on HTTP Server.
-		var gameServer = new Server({
-			server:Http.createServer()
+		var serverDef = defineServer({
+			devMode: true,
+			rooms: {
+				CHAT: defineRoom(ChatRoom),
+				CHAT_WITH_OPTIONS: defineRoom(ChatRoom, {
+					custom_options: "you can use me on Room#onInit"
+				}).filterBy(["create"]),
+				STATE_HANDLER: defineRoom(StateHandlerRoom),
+				NOT_ALLOWED: defineRoom(NotAllowedRoom)
+			},
+			express: (app) -> {
+				app.get("/hi", (req, res) -> {
+					res.send("It's time to kick ass and chew bubblegum!");
+				});
+				app.use(
+					"/monitor", 
+					ExpressAuth.create({
+						users: {
+							"admin": "admin"
+						},
+						challenge: true
+					}),
+					monitor()
+				);
+				app.use("/", playground());
+			}
 		});
 
-		// Register ChatRoom as "chat"
-		gameServer.define(RoomID.CHAT, ChatRoom);
-
-		// Register ChatRoom with initial options, as "chat_with_options"
-		// onInit(options) will receive client join options + options registered here.
-		gameServer.define(RoomID.CHAT_WITH_OPTIONS, ChatRoom, {
-			custom_options: "you can use me on Room#onInit"
-		});
-
-		// Register StateHandlerRoom as "state_handler"
-		gameServer.define(RoomID.STATE_HANDLER, StateHandlerRoom);
-
-		// Register StateHandlerRoom as "state_handler"
-		gameServer.define(RoomID.AUTH, AuthRoom);
-
-		// Register CreateOrJoin as "create_or_join"
-		gameServer.define(RoomID.CREATE_OR_JOIN, CreateOrJoinRoom).filterBy(["create"]);
-
-		gameServer.onShutdown(function() {
+		serverDef.onShutdown(function() {
 			trace('game server is going down.');
 			return cast null;
 		});
 
-		gameServer.listen(Config.PORT);
+		serverDef.listen(Config.PORT);
 		
 		trace('-- listening on 0.0.0.0:${Config.PORT}... --');
 	}
