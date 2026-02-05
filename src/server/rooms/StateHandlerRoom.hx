@@ -19,7 +19,7 @@ class StateHandlerRoom extends Room {
 		);
 	}
 
-	override function onDrop(client, code) {
+	override function onDrop(client, ?code) {
 		return this.allowReconnection(client, 20);
 	}
 
@@ -28,7 +28,7 @@ class StateHandlerRoom extends Room {
 		return null;
 	}
 
-	override function onLeave(client, ?consented:Bool) {
+	override function onLeave(client, ?code:Int) {
 		myState.removePlayer(client.sessionId);
 		return null;
 	}

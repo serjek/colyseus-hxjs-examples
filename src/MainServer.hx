@@ -19,6 +19,7 @@ class MainServer {
 					custom_options: "you can use me on Room#onInit"
 				}).filterBy(["create"]),
 				STATE_HANDLER: defineRoom(StateHandlerRoom),
+				VIEW_ROOM: defineRoom(ViewRoom),
 				NOT_ALLOWED: defineRoom(NotAllowedRoom)
 			},
 			express: (app) -> {

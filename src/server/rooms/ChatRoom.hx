@@ -26,7 +26,7 @@ class ChatRoom extends Room {
 		return null;
 	}
 
-	override function onLeave(client, ?consented:Bool) {
+	override function onLeave(client, ?code:Int) {
 		broadcast("broadcast", '${ client.sessionId } left.');
 		return null;
 	}
