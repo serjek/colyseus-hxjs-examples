@@ -1,28 +1,37 @@
 # colyseus-hxjs-examples
-Examples for [colyseus-hxjs](https://github.com/serjek/colyseus-hxjs) library ported from official [Colyseus examples](https://github.com/colyseus/colyseus-examples)
 
-- Note that since ES6 code is required you should use haxe no earlier than 4.0.0-rc.3
-- Project is using [lix](https://github.com/lix-pm/lix.client) dependency manager.
-To install lix globally use this command
-`npm i lix -g`
+Server examples for [colyseus-hxjs](https://github.com/serjek/colyseus-hxjs) -- Haxe externs for Colyseus v0.17.
 
-### Compile server example
-```
+## Requirements
+
+- Haxe 4.x+
+- [lix](https://github.com/lix-pm/lix.client) dependency manager (`npm i lix -g`)
+- Node.js
+
+## Setup & run
+
+```bash
 lix download
-haxe server.hxml
-cd bin/server
-npm i
-node index.js
+haxe server.hxml          # compile to bin/server/index.js
+cd bin/server && npm i     # install node deps (first time only)
+node index.js              # start server on port 2567
 ```
 
-### Run client(s) of your choice
+The server starts with Colyseus playground at `http://localhost:2567/`.
 
-Please note that these are only server side examples. You should take care of creating proper client yourself:
-- Either compile and run client.hxml
-```
-haxe client.hxml
-cd bin/client
-npm i
-node index.js
-```
-- Or use client provided in official [Colyseus examples](https://github.com/colyseus/colyseus-examples) at `/static` (don't forget to bundle client lib so that colyseus.js got created) 
+## Example rooms
+
+| Room | What it demonstrates |
+|---|---|
+| **ChatRoom** | Basic messaging, `broadcast`, `onMessage` callback |
+| **StateHandlerRoom** | `MapSchema` state, player CRUD, `allowReconnection` on drop |
+| **ViewRoom** | `@:view` decorators, `StateView` per-client, conditional view grant based on score threshold |
+| **NotAllowedRoom** | Async `onJoin` rejection with error code |
+
+## Project structure
+
+- `src/MainServer.hx` -- entry point, `defineServer` with room registration and express routes
+- `src/server/rooms/` -- room implementations
+- `server.hxml` -- Haxe build config
+- `bin/server/` -- compiled output + node_modules
+- `my-server/` -- reference JS Colyseus server used during extern development
