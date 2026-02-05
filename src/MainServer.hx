@@ -42,7 +42,7 @@ class MainServer {
 
 		serverDef.onShutdown(function() {
 			trace('game server is going down.');
-			return cast null;
+			return null;
 		});
 
 		serverDef.listen(Config.PORT);
