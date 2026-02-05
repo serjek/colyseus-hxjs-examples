@@ -33,7 +33,16 @@ class MainServer {
 						},
 						challenge: true
 					}),
-					monitor()
+					monitor({
+						columns: [
+							'roomId',
+							'name',
+							'clients',
+							{ metadata: "gameMode" },
+							'locked',
+							'elapsedTime'
+						]
+					})
 				);
 				app.use("/", playground());
 			}

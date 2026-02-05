@@ -49,6 +49,7 @@ class ViewRoom extends RoomOf<GameState, Dynamic> {
 				}
 			}
 		});
+		setMetadata({gameMode: "deathmatch"});
 	}
 
 	override function onJoin(client, ?options:Dynamic) {
