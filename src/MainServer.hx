@@ -5,7 +5,6 @@ import colyseus.server.Colyseus.defineServer;
 import colyseus.server.Colyseus.defineRoom;
 import colyseus.server.Colyseus.monitor;
 import colyseus.server.Colyseus.playground;
-import js.node.Http;
 import Config;
 
 class MainServer {
